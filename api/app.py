@@ -1,4 +1,5 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
+import os
 
 app = Flask(__name__)
 
@@ -6,6 +7,11 @@ app = Flask(__name__)
 data = {
     "message": "Hello, World!"
 }
+
+# Serve the HTML file as the home page from the 'static' folder
+@app.route('/')
+def home():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'index.html')
 
 # Handle GET request
 @app.route('/hi', methods=['GET'])
